@@ -1,10 +1,15 @@
 body {
   margin-top: 50px;
 }
-#map {
+#streetviewmap {
   height: 600px;
 }
 
 .title {
   margin-bottom: 20px;
+}
+
+#map {
+  height: 200px;
+  width: 200px;
 }

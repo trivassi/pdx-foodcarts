@@ -28,7 +28,17 @@ FoodCart.prototype.getHeading = function () {
 };
 FoodCart.prototype.getId = function () {
   return this.id;
-}; 
+};
 
+
+FoodCart.prototype.chooseLocation = function() {
+  panorama = new google.maps.StreetViewPanorama(document.getElementById('map'), {
+    position: {lat: this.lat, lng: this.lng},
+    pov: {
+      heading: 288.67,
+      pitch: 0
+    }
+  });
+};
 
 exports.foodCartModule = FoodCart;

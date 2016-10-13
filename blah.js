@@ -1,35 +1,59 @@
-var map;
-var service;
-var infowindow;
+function GoogleMap(lat, lng) {
+  this.lat = lat;
+  this.lng = lng;
+}
 
-function initialize() {
-  var pyrmont = new google.maps.LatLng(-33.8665433,151.1956316);
+function GooglePlaces() {
+}
+
+var service;
+var panorama;
+var map;
+var foodCartsLocation = {lat: this.lat, lng: this.lng};
+
+GoogleMap.prototype.initMap = function() {
+
+  panorama = new google.maps.StreetViewPanorama(document.getElementById('streetviewmap'), {
+    position: {lat: this.lat, lng: this.lng},
+    pov: {
+      heading: 288.67,
+      pitch: 0
+    }
+  });
+
+  };
+
+GooglePlaces.prototype.getPlaces = function() {
 
   map = new google.maps.Map(document.getElementById('map'), {
-      center: pyrmont,
+      center: foodCartsLocation,
       zoom: 15
     });
 
-  var request = {
-    location: pyrmont,
-    radius: '500',
-    query: 'restaurant'
+  var alderPod = new google.maps.LatLngBounds(
+    new google.maps.LatLng(45.5210298, -122.6816663),
+    new google.maps.LatLng(45.5208193, -122.6812908)
+  );
+
+  var alderFoodCarts = {
+    bounds: alderPod.getBounds(),
+    types: ['restaurant']
   };
 
   service = new google.maps.places.PlacesService(map);
-  service.textSearch(request, callback);
-}
+  service.nearbySearch(alderFoodCarts, callback);
 
-function callback(results, status) {
-  if (status == google.maps.places.PlacesServiceStatus.OK) {
-    for (var i = 0; i < results.length; i++) {
-      var place = results[i];
-      createMarker(results[i]);
-    }
+};
+
+
+function callback(results) {
+  for (var i = 0; i < results.length; i++) {
+    console.log(results[i]);
+    var place = results[i];
+    console.log(place);
   }
 }
 
 
 
-
-var alderPod = {lat: 45.5208161, lng: -122.6805825};
+exports.googleMapModule = GoogleMap;
