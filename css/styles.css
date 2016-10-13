@@ -1,0 +1,10 @@
+body {
+  margin-top: 50px;
+}
+#map {
+  height: 600px;
+}
+
+.title {
+  margin-bottom: 20px;
+}
